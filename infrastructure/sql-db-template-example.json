@@ -1,0 +1,219 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "collation": {
+      "value": "<collation>"
+    },
+    "databaseName": {
+      "value": "<databaseName>"
+    },
+    "tier": {
+      "value": "<tier>"
+    },
+    "skuName": {
+      "value": "<skuName>"
+    },
+    "location": {
+      "value": "<location>"
+    },
+    "maxSizeBytes": {
+      "value": "<maxSizeBytes>"
+    },
+    "sampleName": {
+      "value": "<sampleName>"
+    },
+    "serverName": {
+      "value": "<serverName>"
+    },
+    "licenseType": {
+      "value": "<licenseType>"
+    },
+    "readScaleOut": {
+      "value": "<readScaleOut>"
+    },
+    "zoneRedundant": {
+      "value": "<zoneRedundant>"
+    },
+    "minCapacity": {
+      "value": "<minCapacity>"
+    },
+    "autoPauseDelay": {
+      "value": "<autoPauseDelay>"
+    },
+    "numberOfReplicas": {
+      "value": "<numberOfReplicas>"
+    },
+    "enableADS": {
+      "value": "<enableADS>"
+    },
+    "allowAzureIps": {
+      "value": "<allowAzureIps>"
+    },
+    "allowClientIp": {
+      "value": "<allowClientIp>"
+    },
+    "clientIpValue": {
+      "value": "<clientIpValue>"
+    },
+    "databaseTags": {
+      "value": "<databaseTags>"
+    },
+    "serverTags": {
+      "value": "<serverTags>"
+    },
+    "enableVA": {
+      "value": "<enableVA>"
+    },
+    "vaStoragelessEnabled": {
+      "value": "<vaStoragelessEnabled>"
+    },
+    "enableSqlLedger": {
+      "value": "<enableSqlLedger>"
+    },
+    "enableDigestStorage": {
+      "value": "<enableDigestStorage>"
+    },
+    "digestStorageOption": {
+      "value": "<digestStorageOption>"
+    },
+    "digestStorageName": {
+      "value": "<digestStorageName>"
+    },
+    "blobStorageContainerName": {
+      "value": "<blobStorageContainerName>"
+    },
+    "retentionDays": {
+      "value": "<retentionDays>"
+    },
+    "retentionPolicy": {
+      "value": "<retentionPolicy>"
+    },
+    "digestAccountResourceGroup": {
+      "value": "<digestAccountResourceGroup>"
+    },
+    "isNewDigestLocation": {
+      "value": "<isNewDigestLocation>"
+    },
+    "digestRegion": {
+      "value": "<digestRegion>"
+    },
+    "storageAccountdigestRegion": {
+      "value": "<storageAccountdigestRegion>"
+    },
+    "isPermissionAssigned": {
+      "value": "<isPermissionAssigned>"
+    },
+    "sqlLedgerTemplateLink": {
+      "value": "<sqlLedgerTemplateLink>"
+    },
+    "useVAManagedIdentity": {
+      "value": "<useVAManagedIdentity>"
+    },
+    "enablePrivateEndpoint": {
+      "value": "<enablePrivateEndpoint>"
+    },
+    "privateEndpointNestedTemplateId": {
+      "value": "<privateEndpointNestedTemplateId>"
+    },
+    "privateEndpointSubscriptionId": {
+      "value": "<privateEndpointSubscriptionId>"
+    },
+    "privateEndpointResourceGroup": {
+      "value": "<privateEndpointResourceGroup>"
+    },
+    "privateEndpointName": {
+      "value": "<privateEndpointName>"
+    },
+    "privateEndpointLocation": {
+      "value": "<privateEndpointLocation>"
+    },
+    "privateEndpointSubnetId": {
+      "value": "<privateEndpointSubnetId>"
+    },
+    "privateLinkServiceName": {
+      "value": "<privateLinkServiceName>"
+    },
+    "privateLinkServiceServiceId": {
+      "value": "<privateLinkServiceServiceId>"
+    },
+    "privateEndpointVnetSubscriptionId": {
+      "value": "<privateEndpointVnetSubscriptionId>"
+    },
+    "privateEndpointVnetResourceGroup": {
+      "value": "<privateEndpointVnetResourceGroup>"
+    },
+    "privateEndpointVnetName": {
+      "value": "<privateEndpointVnetName>"
+    },
+    "privateEndpointSubnetName": {
+      "value": "<privateEndpointSubnetName>"
+    },
+    "enablePrivateDnsZone": {
+      "value": "<enablePrivateDnsZone>"
+    },
+    "privateLinkPrivateDnsZoneFQDN": {
+      "value": "<privateLinkPrivateDnsZoneFQDN>"
+    },
+    "privateLinkPrivateDnsZoneRG": {
+      "value": "<privateLinkPrivateDnsZoneRG>"
+    },
+    "privateEndpointDnsRecordUniqueId": {
+      "value": "<privateEndpointDnsRecordUniqueId>"
+    },
+    "privateEndpointTemplateLink": {
+      "value": "<privateEndpointTemplateLink>"
+    },
+    "privateDnsForPrivateEndpointTemplateLink": {
+      "value": "<privateDnsForPrivateEndpointTemplateLink>"
+    },
+    "privateDnsForPrivateEndpointNicTemplateLink": {
+      "value": "<privateDnsForPrivateEndpointNicTemplateLink>"
+    },
+    "privateDnsForPrivateEndpointIpConfigTemplateLink": {
+      "value": "<privateDnsForPrivateEndpointIpConfigTemplateLink>"
+    },
+    "clientIpRuleName": {
+      "value": "<clientIpRuleName>"
+    },
+    "minimalTlsVersion": {
+      "value": "<minimalTlsVersion>"
+    },
+    "publicNetworkAccess": {
+      "value": "<publicNetworkAccess>"
+    },
+    "connectionType": {
+      "value": "<connectionType>"
+    },
+    "requestedBackupStorageRedundancy": {
+      "value": "<requestedBackupStorageRedundancy>"
+    },
+    "availabilityZone": {
+      "value": "<availabilityZone>"
+    },
+    "useFreeLimit": {
+      "value": "<useFreeLimit>"
+    },
+    "freeLimitExhaustionBehavior": {
+      "value": "<freeLimitExhaustionBehavior>"
+    },
+    "maintenanceConfigurationId": {
+      "value": "<maintenanceConfigurationId>"
+    },
+    "administrators": {
+      "value": "<administrators>"
+    },
+    "identity": {
+      "value": "<identity>"
+    },
+    "primaryUserAssignedIdentityId": {
+      "value": "<primaryUserAssignedIdentityId>"
+    },
+    "federatedClientId": {
+      "value": "<federatedClientId>"
+    },
+    "servicePrincipal": {
+      "value": "<servicePrincipal>"
+    }
+  }
+}
