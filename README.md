@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="">
-    <img src="docs/logo.jpg" alt="Logo" width="300" height="300">
+    <img src="docs/logo.jpg" alt="Logo" width="300" height="150">
   </a>
 </div>
 
