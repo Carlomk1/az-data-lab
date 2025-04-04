@@ -31,7 +31,13 @@ Für die Erstellung der Grundstruktur der Azure-Diensten wird folgendes Schema a
 Dies ermöglicht eine saubere Trennung und Verwaltung der Cloud-Infrastruktur.
 
 ## Vorbereitungen für zwei Use Cases:
-### Szenario 1: 
+### Szenario 1: Cloud based
+
+<details>
+<summary>Klicke hier, um den Ablauf anzuzeigen</summary>
+
+<br>
+
 - Service: Azure SQL Database
 - Tier: Free/Basic (vCore serverless) für Testzwecke
 - WICHTIG: Bei der Authentifizierung "SQL authentication" auswählen (nicht Entra ID oder AAD)
@@ -108,37 +114,44 @@ SELECT TOP 10 * FROM charging_stats;
 
 - Alternativ: Kontrolle auch möglich via Python/Notebook (`pd.read_sql(...)`)
 
+</details>
+
 ---
 
-🚀
 
-### Szenario 2:
+### Szenario 2: On Prem basiert
+
+<details>
+<summary>Klicke hier, um den Ablauf anzuzeigen</summary>
+
+<br>
 
 ![Scenario2](docs/scenario2.jpg)
 
 1. **Einrichten der Self-hosted Integration Runtime (SHIR):**
-   - Installation und Konfiguration der SHIR auf dem lokalen Server, um eine sichere Verbindung zwischen der lokalen Umgebung und Azure Data Factory herzustellen.
+   - Installation und Konfiguration der SHIR auf dem lokalen Server, um eine sichere Verbindung zwischen der lokalen Umgebung und Azure Data Factory herzustellen.
 
 2. **Erstellen eines Linked Services für die lokale SQL Server-Datenbank:**
-   - Konfiguration der Verbindungsdetails zur lokalen SQL Server-Datenbank in Azure Data Factory, einschließlich Servername, Datenbankname und Authentifizierungsinformationen.
+   - Konfiguration der Verbindungsdetails zur lokalen SQL Server-Datenbank in Azure Data Factory, einschließlich Servername, Datenbankname und Authentifizierungsinformationen.
 
 3. **Erstellen eines Linked Services für Azure Data Lake Storage Gen2:**
-   - Einrichtung der Verbindung zu Azure Data Lake Storage Gen2 durch Angabe des Speicherortnamens und der Authentifizierungsdetails.
+   - Einrichtung der Verbindung zu Azure Data Lake Storage Gen2 durch Angabe des Speicherortnamens und der Authentifizierungsdetails.
 
 4. **Erstellen einer Pipeline in Azure Data Factory:**
-   - Zusammenstellung einer Pipeline mit einer Copy Data-Aktivität, die die Daten von der lokalen SQL Server-Datenbank in den Azure Data Lake Storage Gen2 überträgt.
+   - Zusammenstellung einer Pipeline mit einer Copy Data-Aktivität, die die Daten von der lokalen SQL Server-Datenbank in den Azure Data Lake Storage Gen2 überträgt.
 
 5. **Konfigurieren der Copy Data-Aktivität:**
-   - Festlegen der Quelle (lokale SQL Server-Datenbank) und des Ziels (Azure Data Lake Storage Gen2), Auswahl der zu kopierenden Tabellen oder Daten und Festlegung des Datenformats für die Speicherung im Data Lake.
+   - Festlegen der Quelle (lokale SQL Server-Datenbank) und des Ziels (Azure Data Lake Storage Gen2), Auswahl der zu kopierenden Tabellen oder Daten und Festlegung des Datenformats für die Speicherung im Data Lake.
 
 6. **Veröffentlichen und Ausführen der Pipeline:**
-   - Speichern und Veröffentlichen der erstellten Pipeline und anschließendes Starten der Pipeline, um den Datenübertragungsprozess zu initiieren.
+   - Speichern und Veröffentlichen der erstellten Pipeline und anschließendes Starten der Pipeline, um den Datenübertragungsprozess zu initiieren.
 
 7. **Überwachen der Pipeline-Ausführung:**
-   - Verfolgung des Fortschritts und Überprüfung auf Fehler oder Warnungen während der Ausführung der Pipeline über die Monitoring-Funktion in Azure Data Factory.
+   - Verfolgung des Fortschritts und Überprüfung auf Fehler oder Warnungen während der Ausführung der Pipeline über die Monitoring-Funktion in Azure Data Factory.
 
+</details>
 
-
+🚀
 
 
 
