@@ -9,30 +9,34 @@
 </div>
 
 ## Goal & purpose
-Ziel dieses Projekts ist es, eine **end-to-end Data Engineering-Umgebung auf Azure** aufzubauen – von einer relationalen SQL-Datenbank über Datenuploads bis hin zur Integration mit Databricks für spätere Analysen.  
-Es wurde bewusst darauf geachtet, möglichst **kostenfrei** innerhalb eines Azure Free Trial sowie **strukturkonform (IaC-fähig)** zu arbeiten.
+Ziel dieses Projekts ist es, eine **end-to-end Data Engineering-Umgebung auf Azure** aufzubauen –  Datenuploads in eine SQL-Datenbank in einem Data, Aufbau von Pipelines für die Transformation der Daten, Integration mit Databricks für die Steuerung von Data Lineage und Anwendung der Governance. Es wurde bewusst darauf geachtet, möglichst **kostengünstig** innerhalb eines Azure Free Trials zu arbeiten.
 
 ## Azure account
-- Azure Free Trial: https://azure.microsoft.com/free/
+- Azure Free Trial mit 200 USD Budget: https://azure.microsoft.com/free/
 - Account kann mit einer privaten E-Mail-Adresse erstellt werden (z. B. Gmail)
-- Kreditkarte wird zur Verifizierung benötigt, es entstehen jedoch keine Kosten, solange die kostenlosen Limits nicht überschritten werden
+- Kreditkarte wird zur Verifizierung benötigt, es entstehen jedoch keine Kosten, solange die kostenlosen Limits nicht überschritten werden. Belastung von 1 USD zur Verifizierung.
 
 ### Overview
-Grundstruktur von Azure-Diensten:
-- Subscription (z. B. Free Trial)
-- Resource Group (z. B. rg-dataproject1)
-- Ressourcen: Azure SQL DB, Storage Account, Data Factory usw.
+Für die Erstellung der Grundstruktur der Azure-Diensten wird folgendes Schema angewendet:
+![Process](docs/scope-levels.png)
+- Management Group (*optional*): Gruppieren mehrerer Subscriptions in einer Organisation. Wird hier nicht angewendet.
+- Subscription (*Free Trial*): Repräsentiert ein Abrechnungs- und Ressourcenkonto, um innerhalb  Ressourcen und deren Limits zu definieren
+- Resource Group (*z.B. rg-dataproject1*): Logische Sammlung von Ressourcen, wie SQL Datenbank, Storage Account, Databricks Workspace, Data Factory usw.
+- Ressourcen: Einzelkomponenten zur Verwendung im Projekt
+  - Azure SQL Database → für strukturierte Daten
+  - Storage Account (ADLS Gen2) → für Dateien, Delta Lake
+  - Azure Databricks → für Analyse, Transformation, ML
+  - Key Vault → optional für sichere Passwörter & Secrets
 
 Dies ermöglicht eine saubere Trennung und Verwaltung der Cloud-Infrastruktur.
 
-## SQL database creation
+## Vorbereitungen für zwei Use Cases:
+### Szenario 1: 
 - Service: Azure SQL Database
 - Tier: Free/Basic (vCore serverless) für Testzwecke
 - WICHTIG: Bei der Authentifizierung "SQL authentication" auswählen (nicht Entra ID oder AAD)
 - Benutzername/Passwort wird direkt beim Erstellen gesetzt
 - Zugriff über Firewall-Regel für eigene IP und Databricks-IP gewährleisten
-
-## Tools & Libraries
 
 ### Tools
 
@@ -41,8 +45,7 @@ Dies ermöglicht eine saubere Trennung und Verwaltung der Cloud-Infrastruktur.
 
 - **Python 3.11+**
 - **Git** für Versionierung
-- **Azure CLI** für Skripting  
-  Install: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+- **Azure CLI** für Skripting: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 
 ### Python Libraries
 
@@ -57,7 +60,7 @@ pip install pyodbc pandas sqlalchemy python-dotenv
 
 ---
 
-## Setup Workflow
+### Setup Workflow
 
 Ziel: End-to-End-Datenfluss in Azure mit Python aufbauen:
 
@@ -67,7 +70,7 @@ Ziel: End-to-End-Datenfluss in Azure mit Python aufbauen:
 4. **CSV-Daten laden** (`db_upload_data.py`)
 5. **Verifizierung über Azure Portal oder Python**
 
-### Access
+#### Access
 
 - Das Skript `db_connect.py` testet die Verbindung zur SQL-Datenbank mit Umgebungsvariablen aus `.env`
 - Nutzt `pyodbc` für direkten SQL-Zugriff
@@ -78,12 +81,12 @@ conn = pyodbc.connect(
 )
 ```
 
-### Create Table
+#### Create Table
 
 - `db_create_table.py` enthält das `CREATE TABLE`-Statement für die Tabelle `charging_stats`
 - Nutzt `pyodbc` um die Tabelle direkt in der Datenbank anzulegen
 
-### Load Data
+#### Load Data
 
 - `db_upload_data.py` lädt eine CSV-Datei (`charging_data.csv`) in die zuvor erstellte Tabelle
 - Nutzt `pandas` + `sqlalchemy` um bulk insert durchzuführen
@@ -93,7 +96,7 @@ df = pd.read_csv("charging_data.csv")
 df.to_sql("charging_stats", con=engine, if_exists="append", index=False)
 ```
 
-### Verify Deployment
+#### Verify Deployment
 
 - Im Azure Portal: öffne die SQL-Datenbank → **Query Editor (Preview)**
 - Melde dich mit SQL-Login an
@@ -108,4 +111,35 @@ SELECT TOP 10 * FROM charging_stats;
 ---
 
 🚀
+
+### Szenario 2:
+
+![Scenario2](docs/scenario2.jpg)
+
+1. **Einrichten der Self-hosted Integration Runtime (SHIR):**
+   - Installation und Konfiguration der SHIR auf dem lokalen Server, um eine sichere Verbindung zwischen der lokalen Umgebung und Azure Data Factory herzustellen.
+
+2. **Erstellen eines Linked Services für die lokale SQL Server-Datenbank:**
+   - Konfiguration der Verbindungsdetails zur lokalen SQL Server-Datenbank in Azure Data Factory, einschließlich Servername, Datenbankname und Authentifizierungsinformationen.
+
+3. **Erstellen eines Linked Services für Azure Data Lake Storage Gen2:**
+   - Einrichtung der Verbindung zu Azure Data Lake Storage Gen2 durch Angabe des Speicherortnamens und der Authentifizierungsdetails.
+
+4. **Erstellen einer Pipeline in Azure Data Factory:**
+   - Zusammenstellung einer Pipeline mit einer Copy Data-Aktivität, die die Daten von der lokalen SQL Server-Datenbank in den Azure Data Lake Storage Gen2 überträgt.
+
+5. **Konfigurieren der Copy Data-Aktivität:**
+   - Festlegen der Quelle (lokale SQL Server-Datenbank) und des Ziels (Azure Data Lake Storage Gen2), Auswahl der zu kopierenden Tabellen oder Daten und Festlegung des Datenformats für die Speicherung im Data Lake.
+
+6. **Veröffentlichen und Ausführen der Pipeline:**
+   - Speichern und Veröffentlichen der erstellten Pipeline und anschließendes Starten der Pipeline, um den Datenübertragungsprozess zu initiieren.
+
+7. **Überwachen der Pipeline-Ausführung:**
+   - Verfolgung des Fortschritts und Überprüfung auf Fehler oder Warnungen während der Ausführung der Pipeline über die Monitoring-Funktion in Azure Data Factory.
+
+
+
+
+
+
 
