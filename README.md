@@ -19,10 +19,10 @@ Ziel dieses Projekts ist es, eine **end-to-end Data Engineering-Umgebung auf Azu
 ### Overview
 Für die Erstellung der Grundstruktur der Azure-Diensten wird folgendes Schema angewendet:
 ![Process](docs/scope-levels.png)
-- Management Group (*optional*): Gruppieren mehrerer Subscriptions in einer Organisation. Wird hier nicht angewendet.
-- Subscription (*Free Trial*): Repräsentiert ein Abrechnungs- und Ressourcenkonto, um innerhalb  Ressourcen und deren Limits zu definieren
-- Resource Group (*z.B. rg-dataproject1*): Logische Sammlung von Ressourcen, wie SQL Datenbank, Storage Account, Databricks Workspace, Data Factory usw.
-- Ressourcen: Einzelkomponenten zur Verwendung im Projekt
+- **Management Group** (*optional*): Gruppieren mehrerer Subscriptions in einer Organisation. Wird hier nicht angewendet.
+- **Subscription** (*Free Trial*): Repräsentiert ein Abrechnungs- und Ressourcenkonto, um innerhalb  Ressourcen und deren Limits zu definieren
+- **Resource Group** (*z.B. rg-dataproject1*): Logische Sammlung von Ressourcen, wie SQL Datenbank, Storage Account, Databricks Workspace, Data Factory usw.
+- **Ressourcen**: Einzelkomponenten zur Verwendung im Projekt
   - Azure SQL Database → für strukturierte Daten
   - Storage Account (ADLS Gen2) → für Dateien, Delta Lake
   - Azure Databricks → für Analyse, Transformation, ML
