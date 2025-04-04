@@ -11,7 +11,7 @@
 ## Goal & purpose
 Ziel dieses Projekts ist es, eine **end-to-end Data Engineering-Umgebung auf Azure** aufzubauen –  Datenuploads in eine SQL-Datenbank in einem Data, Aufbau von Pipelines für die Transformation der Daten, Integration mit Databricks für die Steuerung von Data Lineage und Anwendung der Governance. Es wurde bewusst darauf geachtet, möglichst **kostengünstig** innerhalb eines Azure Free Trials zu arbeiten.
 
-## Azure account
+## Azure account erstellen
 - Azure Free Trial mit 200 USD Budget: https://azure.microsoft.com/free/
 - Account kann mit einer privaten E-Mail-Adresse erstellt werden (z. B. Gmail)
 - Kreditkarte wird zur Verifizierung benötigt, es entstehen jedoch keine Kosten, solange die kostenlosen Limits nicht überschritten werden. Belastung von 1 USD zur Verifizierung.
@@ -151,7 +151,125 @@ SELECT TOP 10 * FROM charging_stats;
 
 </details>
 
-🚀
+
+### Szenario 3: Databricks & Unity Catalog Setup mit Azure SQL & Storage 🚀
+
+<details>
+<summary>Klicke hier, um den Ablauf anzuzeigen</summary>
+
+<br>
+
+Dieses Kapitel beschreibt Schritt für Schritt, wie eine Azure SQL-Datenbank mit Databricks (Premium Tier) verknüpft wird, um Daten zu lesen und Unity Catalog zu testen. Ideal für erste praktische Erfahrungen in einer Cloud-Datenumgebung.
+
+---
+
+## Voraussetzungen
+
+- Azure Subscription mit Budget (kein Free Trial)
+- Zugriff auf das Azure-Portal mit Adminrechten
+- Azure SQL-Datenbank & SQL Server
+- Azure Storage Account mit **Hierarchical Namespace (HNS)** aktiviert
+- Databricks Free Trial mit **Premium Tier** gewählt
+- Du bist der Azure **Entra Admin** / Directory Admin
+
+---
+
+## Ressourcen im Projekt
+
+- **SQL Server:** `xxx-cmdb`
+- **SQL Datenbank:** `xxx-cmdb/cmdb`
+- **Storage Account:** `xxxxdatalake`
+- **Virtual Network:** `nw-xxxxxx-xxxx`
+
+---
+
+## Schritt-für-Schritt Anleitung
+
+### 1. Storage Account prüfen (Unity Catalog Voraussetzung)
+
+> Unity Catalog benötigt einen Data Lake Storage mit aktiviertem **Hierarchical Namespace** (ADLS Gen2).
+
+- Gehe in Azure zum Storage `xxxxdatalake`
+- Navigiere zu **Configuration**
+- **Hierarchical namespace = Enabled**
+    - Falls **nicht aktiviert**: neuen Storage Account erstellen (mit HNS!)
+
+---
+
+### 2. Databricks Workspace erstellen (Premium Tier)
+
+- Gehe im Azure-Portal zu "Azure Databricks"
+- Wähle:
+  - **Pricing Tier:** Premium
+  - **Region:** identisch mit SQL & Storage (z. B. Switzerland North)
+  - **Resource Group:** gleich wie für andere Ressourcen
+- Deployment starten
+
+---
+
+### 3. Unity Catalog einrichten
+
+- Navigiere im Databricks-Workspace zu **Admin Settings > Unity Catalog**
+- Klicke **Enable Unity Catalog**
+- Folge dem Wizard:
+  - Erstelle einen **Metastore**
+  - Verknüpfe den Storage Account `xxxxdatalake`
+  - Lege dich als **Metastore-Admin** fest
+
+---
+
+### 4. Verbindung zur SQL-Datenbank herstellen (JDBC)
+
+- Firewall-Regel im SQL Server: IP von Databricks zulassen
+- Stelle sicher, dass **SQL Authentication** aktiviert ist
+- Beispiel-Notebook:
+
+```python
+jdbc_url = "jdbc:sqlserver://xxx-xxxx.database.windows.net:xxxx;database=cmdb"
+properties = {
+  "user": "dein_user",
+  "password": "dein_passwort",
+  "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+}
+
+df = spark.read.jdbc(url=jdbc_url, table="dbo.deine_tabelle", properties=properties)
+df.display()
+```
+
+---
+
+### 5. Daten in Unity Catalog schreiben (Delta Table)
+
+```python
+df.write.format("delta").saveAsTable("mein_catalog.mein_schema.cmdb_daten")
+```
+
+Damit sind die Daten in einer verwalteten Tabelle verfügbar und per SQL, ML oder BI nutzbar.
+
+---
+
+## Wichtige Hinweise
+
+| Thema                    | Empfehlung                                   |
+|-------------------------|-----------------------------------------------|
+| Identität               | Unity Catalog setzt Azure Entra ID voraus     |
+| Kostenkontrolle         | Single-Node Cluster & Auto-Termination aktiv |
+| Rechte & Sicherheit     | Verwende Gruppen für Metastore-Zugriffe       |
+| Datenquellen            | Für JDBC-Zugriffe: IP whitelisten & Auth sichern |
+| Housekeeping            | Clusternutzung überwachen & ungenutzte Ressourcen löschen |
+
+---
+
+## Fazit
+
+Mit diesem Setup kannst du:
+
+- SQL-Daten in Databricks verarbeiten
+- Unity Catalog aktiv testen (Metastore + Data Governance)
+- Erste Pipelines oder ML-Anwendungen bauen
+
+</details>
+
 
 
 
