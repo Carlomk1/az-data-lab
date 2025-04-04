@@ -160,7 +160,7 @@ SELECT TOP 10 * FROM charging_stats;
 
 <br>
 
-Dieses Kapitel beschreibt Schritt für Schritt, wie eine Azure SQL-Datenbank mit Databricks (Premium Tier) verknüpft wird, um Daten zu lesen und Unity Catalog zu testen. Ideal für erste praktische Erfahrungen in einer Cloud-Datenumgebung.
+Dieses Kapitel beschreibt Schritt für Schritt, wie eine Azure SQL-Datenbank mit Databricks (Premium Tier) verknüpft wird, um Daten zu lesen und Unity Catalog zu testen. Ideal für erste praktische Erfahrungen in einer Cloud-Datenumgebung. Source: https://learn.microsoft.com/en-us/azure/databricks/
 
 ---
 
@@ -210,6 +210,10 @@ Dieses Kapitel beschreibt Schritt für Schritt, wie eine Azure SQL-Datenbank mit
 
 ### 3. Unity Catalog einrichten
 
+Source: 
+- https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/get-started
+- https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/create-metastore
+
 - Navigiere im Databricks-Workspace zu **Admin Settings > Unity Catalog**
 - Klicke **Enable Unity Catalog**
 - Folge dem Wizard:
@@ -220,6 +224,8 @@ Dieses Kapitel beschreibt Schritt für Schritt, wie eine Azure SQL-Datenbank mit
 ---
 
 ### 4. Verbindung zur SQL-Datenbank herstellen (JDBC)
+
+Source: https://learn.microsoft.com/en-us/azure/databricks/connect/storage/tutorial-azure-storage
 
 - Firewall-Regel im SQL Server: IP von Databricks zulassen
 - Stelle sicher, dass **SQL Authentication** aktiviert ist
