@@ -151,6 +151,7 @@ SELECT TOP 10 * FROM charging_stats;
 
 </details>
 
+---
 
 ### Szenario 3: Databricks & Unity Catalog Setup mit Azure SQL & Storage 🚀
 
@@ -270,7 +271,7 @@ Mit diesem Setup kannst du:
 
 </details>
 
-
+---
 
 
 
