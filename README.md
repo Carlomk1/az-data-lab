@@ -114,6 +114,10 @@ SELECT TOP 10 * FROM charging_stats;
 
 - Alternativ: Kontrolle auch möglich via Python/Notebook (`pd.read_sql(...)`)
 
+
+Folgendes Tutorial zeigt die einzelnen Schritte ziemlich gut: https://www.youtube.com/watch?v=P5pEeR3xQpI&t=4295s
+Hinweis: Unity catalog kann nur im databricks premium tier verwendet werden
+
 </details>
 
 ---
@@ -148,6 +152,9 @@ SELECT TOP 10 * FROM charging_stats;
 
 7. **Überwachen der Pipeline-Ausführung:**
    - Verfolgung des Fortschritts und Überprüfung auf Fehler oder Warnungen während der Ausführung der Pipeline über die Monitoring-Funktion in Azure Data Factory.
+
+Folgendes Tutorial zeigt die einzelnen Schritte ziemlich gut: https://www.youtube.com/watch?v=ygJ11fzq_ik
+Hinweis: Diverse Tools benötigt gemäss Tutorials (SSMS, Runtime Integration, Microsoft SQL Server 2022). 
 
 </details>
 
